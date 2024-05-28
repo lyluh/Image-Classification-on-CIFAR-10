@@ -23,7 +23,14 @@ def calculate_centers(
     Returns:
         np.ndarray: Array of shape (num_centers, d) containing new centers.
     """
-    raise NotImplementedError("Your Code Goes Here")
+    _, d = data.shape
+    new_centers = np.zeros((num_centers, d))
+
+    for i in range(num_centers):
+        points = data[classifications == i]
+        new_centers[i] = points.mean(axis=0)
+    
+    return new_centers
 
 
 @problem.tag("hw4-A")
@@ -39,7 +46,17 @@ def cluster_data(data: np.ndarray, centers: np.ndarray) -> np.ndarray:
         np.ndarray: Array of integers of shape (n,), with each entry being in range {0, 1, 2, ..., k - 1}.
             Entry j at index i should mean that j^th center is the closest to data[i] datapoint.
     """
-    raise NotImplementedError("Your Code Goes Here")
+    n = data.shape[0]
+    k = centers.shape[0]
+    
+    distances = np.zeros((n, k))
+    for i in range(k):
+        distances[:, i] = np.linalg.norm(data - centers[i], axis=1)
+
+    classifications = np.argmin(distances, axis=1)
+    
+    return classifications
+
 
 
 def calculate_error(data: np.ndarray, centers: np.ndarray) -> float:
@@ -84,4 +101,17 @@ def lloyd_algorithm(
     Note:
         - For initializing centers please use the first `num_centers` data points.
     """
-    raise NotImplementedError("Your Code Goes Here")
+    errors = []
+    centers = data[:num_centers]
+
+    while True:
+        classifications = cluster_data(data, centers)
+        new_centers = calculate_centers(data, classifications, num_centers)
+
+        errors.append(calculate_error(data, centers))
+        if np.max(np.abs(new_centers - centers)) <= epsilon:
+            break
+    
+    return (centers, errors)
+    
+
