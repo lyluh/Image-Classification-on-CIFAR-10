@@ -123,9 +123,6 @@ Note that if you do get a lot of `NotImplementedError("Your Code Goes Here")` er
 
 
 ## Testing
-In this class we will use unittest framework in python to automatically grade coding problems.
-Some of the tests are provided to you, so that you can validate your results.
-
 To run tests:
 ```
 inv test
@@ -152,11 +149,6 @@ Arrays are not almost equal to 6 decimals
 ```
 
 You can see that in the top there are 3 `F`'s and 2 `.`'s. `F`'s correspond to failed tests and `.` correspond to correct tests.
-
-There are few things to note:
-
-- Not all tests are equal. Some are worth more points. This will not be displayed when you run `inv test`.
-- We **do not** provide you with all tests. There are many that hidden. Even if you pass all *public* tests you may still fail some *hidden* ones. We recommend submitting your code to Gradescope early and often so you can check the autograder score before the deadline, in case you would like to resubmit.
 
 ### Testing specific problem
 Unfortunately the `unittest` framework doesn't allow for testing specific file.
